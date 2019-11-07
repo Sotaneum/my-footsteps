@@ -46,7 +46,7 @@ const OPENLAYERS_OPTION = {
 const LIST = $.jsList.create();
 const OLEXT = $.jsolext.create(OPENLAYERS_OPTION);
 const MENU = $.jsMenu.create(DIV_MENU).setWidth(360).setHeight(100);
-const ADD_MENU = $.jsMenu.create(DIV_MENU).setWidth(240).setHeight(100);
+const ADD_MENU = $.jsMenu.create(DIV_MENU).setWidth(160).setHeight(100);
 
 const MENU_ADD_POST = $.jsMenu.item.create("./static/images/add.png","메모",function(){
     ADD_MENU.setShow();
@@ -93,7 +93,7 @@ const MENU_ADD_POST_FROM_TEXT = $.jsMenu.item.create("./static/images/text.png",
 const MENU_ADD_POST_CLOSE = $.jsMenu.item.create("./static/images/close.png","닫기",null).setWidth(90).setHeight(100);
 
 MENU.addItem(MENU_ADD_POST).addItem(MENU_THEMA_MAP).addItem(MENU_POST_LIST).addItem(MENU_CLOSE);
-ADD_MENU.addItem(MENU_ADD_POST_FROM_MAP).addItem(MENU_ADD_POST_FROM_TEXT).addItem(MENU_ADD_POST_CLOSE);
+ADD_MENU.addItem(MENU_ADD_POST_FROM_MAP).addItem(MENU_ADD_POST_CLOSE);
 
 DIV_BTN_MENU.onclick = function(){
     MENU.setShow();
@@ -139,9 +139,7 @@ function HandleOpenLayersClick(e){
     const coordinate = OLEXT.CoordinateFromPixel(pixel);
     let thumbnail = $.jsmessage.image.default;
     let text = "정보없음";
-    let event = function(){
-        EditItemFromFeature(feature);
-    };
+    let event = function(){/*nothing*/};
     let bottom = coordinatesToText(coordinate);
     if(feature){
         const properties = feature.properties;
@@ -226,9 +224,12 @@ function add_data(location, title, context, image, callback){
         OLEXT.moveCenter([node.properties.location[0],node.properties.location[1]]);
     }
     const event = function(json){
+        const message_click = function(){
+            EditItemFromFeature(feature);
+        }
         const address = json.display_name;
         const feature_style = OLEXT.Style.red;
-        const feature_prop = OLEXT.Feature.CreateProperties(context, null, image);
+        const feature_prop = OLEXT.Feature.CreateProperties(context, message_click, image);
         const feature = OLEXT.Feature.InsertFromPolygon("data", location, feature_prop, feature_style);
         const node = $.jsList.node(title, context + " (" + address + ")",image, {
             address:address,
@@ -366,7 +367,7 @@ function EditItemFromItem(item){
             },999);
         };
         delete_button.onclick = function(){
-            remove_data(feature);
+            remove_data(item.feature);
             $(frame).fadeOut(1);
             notice("삭제되었습니다.",6000);
             setTimeout(function(){
