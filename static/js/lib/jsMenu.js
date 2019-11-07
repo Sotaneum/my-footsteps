@@ -63,6 +63,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
                                     event(e);
                                 }
                             }
+                            this._parent = parent;
                             return this;
                         };
                         this.setWidth = function(width){
@@ -77,6 +78,21 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
                             const prev = "jsmenu-button-style-";
                             this._div_frame.className = prev + thema;
                             return this;
+                        }
+                        this.setText = function(text){
+                            this._label_text.innerText = text;
+                            return this;
+                        }
+                        this.setEvent = function(event){
+                            const parent = this._parent;
+                            if(event){
+                                this._div_frame.onclick = function(e){
+                                    parent.setHide();
+                                    if(event){
+                                        event(e);
+                                    }
+                                }
+                            }
                         }
                         return this;
                     }

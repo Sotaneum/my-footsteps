@@ -55,7 +55,54 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
                     this.Feature.core=this;
                     this.Layer.core = this;
                     this.layers = {};
+                    this.drawModeDraw = null;
+                    this.drawModeSnap = null;
+                    this.drawMode = null;
                     return this;
+                },
+                _addInteraction : function(source){
+                    const value = "Polygon";
+                    this.drawModeDraw = new ol.interaction.Draw({
+                        source:source,
+                        type:value
+                    });
+                    this.map.addInteraction(this.drawModeDraw);
+                    this.drawModeSnap = new ol.interaction.Snap({source: source});
+                    this.map.addInteraction(this.drawModeSnap);
+                },
+                _removeInteraction : function(){
+                    this.map.getInteractions().forEach(function(interaction) {
+                        if (interaction instanceof ol.interaction.Modify || 
+                            interaction instanceof ol.interaction.Draw ||
+                            interaction instanceof ol.interaction.Snap) {
+                            interaction.setActive(false);
+                        }
+                    }, this);
+                },
+                startModify:function(layer_key){
+                    const layer = this.Layer.Load(layer_key);
+                    const source = layer.getSource();
+                    this.drawMode = new ol.interaction.Modify({source: source});
+                    this.map.addInteraction(this.drawMode);
+                    this._addInteraction(source);
+                    return this;
+                },
+                stopModify:function(){
+                    this._removeInteraction();
+                    this.drawModeDraw = null;
+                    this.drawModeSnap = null;
+                    this.drawMode = null;
+                    return this;
+                },
+                CoordinateFromFeature : function(feature){
+                    const coordinates = feature.getGeometry().getCoordinates()[0];
+                    const coord = []
+                    for(let i in coordinates){
+                        const coord_ = ol.proj.transform(coordinates[i], 'EPSG:3857', 'EPSG:4326');
+                        coord.push(coord_[0]);
+                        coord.push(coord_[1]);
+                    }
+                    return coord;
                 },
                 CoordinateFromPixel : function(pixel, toFixed){
                     const coordinate = this.map.getCoordinateFromPixel(pixel);
@@ -146,7 +193,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
                         const layer = this.core.Layer.Load(layer_key);
                         layer.getSource().addFeature( Feature );
                         this.core.layers[layer_key].data.push(Feature);
-                        return this.core;
+                        return Feature;
                     },
                     InsertFromPolygon:function(layer_key,coordinates, properties, style){
                         const c_coordinate = [[]];
@@ -164,7 +211,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
                         const layer = this.core.Layer.Load(layer_key);
                         layer.getSource().addFeature( Feature );
                         this.core.layers[layer_key].data.push(Feature);
-                        return this.core;
+                        return Feature;
                     },
                     InsertFromLineString:function(layer_key, coordinates, properties, style){
                         const c_coordinate = []
@@ -182,7 +229,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
                         const layer = this.core.Layer.Load(layer_key);
                         layer.getSource().addFeature( Feature );
                         this.core.layers[layer_key].data.push(Feature);
-                        return this.core;
+                        return Feature;
                     },
                     InsertFromGeoJSON:function(){
                         alert("Not at supported.");
@@ -196,8 +243,8 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
                     },
                     Remove:function(layer_key, feature){
                         const data = this.FindIndex(layer_key, feature);
+                        this.core.Layer.Load(layer_key).getSource().removeFeature(feature);
                         if(data){
-                            this.core.Layer.Load(layer_key).getSource().removeFeature(feature);
                             delete this.core.layers[layer_key].data[data];
                         }
                         return this.core;

@@ -36,3 +36,19 @@
 .left-menu:hover{
     background-image: url('../images/menu.png');
 }
+
+.editbox{
+    /*-webkit-animation-name: editboxSlideUp;
+    -webkit-animation-duration: 2s;
+    animation-name: editboxSlideUp;
+    animation-duration: 2s;*/
+}
+
+@keyframes editboxSlideUp {
+    from {
+        bottom: -350px;
+    }
+    to {
+        bottom: 100px;
+    }
+}

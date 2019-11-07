@@ -161,6 +161,10 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
                     this.findAll(text);
                     return this;
                 },
+                removeNode : function(node){
+                    this._div_list.removeChild(node._div);
+                    delete this._item[node.id];
+                },
                 findAll : function(text){
                     let count = 0;
                     for(key in this._item){
@@ -250,6 +254,14 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
                     this._div.className  = "jsList-node-hover";
 
                     return this;
+                },
+                setTitle : function(title){
+                    this._title=title;
+                    this._div_title.innerText = title;
+                },
+                setContext : function(context){
+                    this._context=context;
+                    this._div_context.innerText = context;
                 },
                 hide : function(){
                     this._div.className = this._div.className.replace("jsList-hide", "") + " jsList-hide";
