@@ -1,0 +1,94 @@
+.jsmenu-core{
+    position: fixed;
+    left:0px;
+    top:0px;
+    width:100vw;
+    height: 100vh;
+}
+
+.jsmenu-frame{
+    position: absolute;
+    display: flex;
+    align-items: center;
+}
+
+.jsmenu-hide-animation{
+    animation-duration: 0.5s;
+    animation-name: jsmenuFadeOut;
+}
+
+.jsmenu-show-animation{
+    animation-duration: 0.5s;
+    animation-name: jsmenuFadeIn;
+}
+
+
+.jsmenu-hide{
+    display: none;
+}
+
+.jsmenu-background{
+    position: absolute;
+    left:0px;
+    top:0px;
+    width:100%;
+    height:100%;
+    background-color:rgba(0, 0, 0, 0.6);
+}
+
+.jsmenu-frame-style-default{
+    background-color:rgba(0,60,136,.5);
+    border: 2px solid white;
+    border-radius: 5px;
+}
+
+.jsmenu-button-style-default{
+    background-color:rgba(2, 38, 85, 0.589);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    cursor: pointer;
+}
+
+.jsmenu-button-style-default:hover{
+    background-color:rgba(255, 255, 255, 0.589);
+}
+
+.jsmenu-button-style-default:hover label{
+    color:rgba(2, 38, 85, 1);
+}
+
+.jsmenu-button-style-default label{
+    width:100%;
+    text-align: center;
+    color:white;
+    margin-top:4px;
+    font-size: 13px;
+    cursor: pointer;
+}
+
+.jsmenu-button-style-default img{
+    margin-top:8px;
+    width:72px;
+    height:72px;
+}
+
+@keyframes jsmenuFadeOut {
+    from {
+        opacity: 1;
+    }
+    to {
+        opacity: 0;
+        display: none;
+    }
+}
+
+@keyframes jsmenuFadeIn {
+    from {
+        opacity: 0;
+        display: block;
+    }
+    to {
+        opacity: 1;
+    }
+}
