@@ -1,1 +1,2 @@
-script copy.js
+node_modules
+build
