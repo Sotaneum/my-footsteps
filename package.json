@@ -7,7 +7,7 @@
     "prebuild": "rm -rf build && mkdir build",
     "build": "cp -r static ./build/static && cp index.html ./build/index.html",
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d build"
+    "deploy": "gh-pages -d build && rm -rf build"
   },
   "repository": {
     "type": "git",
