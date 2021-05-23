@@ -1,0 +1,42 @@
+.jsList-hide-animation{
+    animation-duration: 0.5s;
+    animation-name: jsListFadeOut;
+}
+
+.jsList-show-animation{
+    animation-duration: 0.5s;
+    animation-name: jsListFadeIn;
+}
+
+.jsList-hide{
+    opacity: 0;
+    display: none;
+}
+
+.jsList-hover:hover{
+    background: black;
+}
+
+.jsList-node-hover:hover{
+    background-color:rgba(179, 137, 137, 0.63) !important;
+}
+
+@keyframes jsListFadeOut {
+    from {
+        opacity: 1;
+    }
+    to {
+        opacity: 0;
+        display: none;
+    }
+}
+
+@keyframes jsListFadeIn {
+    from {
+        opacity: 0;
+        display: block;
+    }
+    to {
+        opacity: 1;
+    }
+}

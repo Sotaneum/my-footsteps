@@ -1,0 +1,168 @@
+
+/*
+========================================================
+label 
+========================================================
+*/
+
+/* element */
+
+.jsmessage-label{
+    position: fixed;
+    width:220px;
+    height:28px;
+    border-radius: 10px;
+    text-align: center;
+    background: rgba(0,60,136,.5);
+    color: white;
+    font-size:15px;
+    padding-top:10px;
+    opacity: 0.8;
+}
+
+/* animation */
+
+.jsmessage-label-animation-bottom-up{
+    top: -50px;
+    left: calc(50% - 100px);
+    -webkit-animation-name: jsMessageFrameBottomUp;
+    -webkit-animation-duration: 3s;
+    animation-name: jsMessageFrameBottomUp;
+    animation-duration: 3s;
+}
+
+.jsmessage-label-animation-up-bottom{
+    bottom: -50px;
+    left: calc(50% - 100px);
+    -webkit-animation-name: jsMessageFrameUpBottom;
+    -webkit-animation-duration: 3s;
+    animation-name: jsMessageFrameUpBottom;
+    animation-duration: 3s;
+}
+
+.jsmessage-label-no-animation-bottom{
+    bottom: 10px;
+    left: calc(50% - 100px);
+}
+
+.jsmessage-label-no-animation-up{
+    top: 10px;
+    left: calc(50% - 100px);
+}
+
+/* keyframes */
+
+@keyframes jsMessageLabelBottomUp {
+    0%   {top: -50px;}
+    30%  {top: 10px;}
+    75%  {top: 10px;}
+    100% {top: -50px;}
+}
+
+@keyframes jsMessageLabelUpBottom {
+    0%   {bottom: -50px;}
+    30%  {bottom: 10px;}
+    75%  {bottom: 10px;}
+    100% {bottom: -50px;}
+}
+
+/* 
+========================================================
+frame 
+========================================================
+*/
+
+/* element */
+
+.jsmessage-frame{
+    position: fixed;
+    width: 360px;
+    height: 120px;
+    border: 1px solid rgba(0,60,136,.5);
+    background-color: white;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.jsmessage-frame img{
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    width: 72px;
+    height: 72px;
+}
+
+.jsmessage-frame .bottom{
+    position: absolute;
+    bottom: 10px; 
+    left: 10px;
+    padding: 3px;
+    width: 334px;
+    height: 16px;
+    text-align: center;
+    font-size: 15px;
+    display: inline-block;
+    border-radius: 3px;
+    background-color: rgba(0,60,136,.5);
+    color: white;
+}
+
+.jsmessage-frame .middle{
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    width: 238px;
+    height: 52px;
+    padding: 10px;
+    overflow: auto;
+}
+
+.jsmessage-frame * {
+    cursor: pointer;
+}
+
+/* animation */
+
+.jsmessage-frame-animation-bottom-up{
+    top: -200px;
+    left: calc(50% - 180px);
+    -webkit-animation-name: jsMessageFrameBottomUp;
+    -webkit-animation-duration: 5s;
+    animation-name: jsMessageFrameBottomUp;
+    animation-duration: 5s;
+}
+
+.jsmessage-frame-animation-up-bottom{
+    bottom: -200px;
+    left: calc(50% - 180px);
+    -webkit-animation-name: jsMessageFrameUpBottom;
+    -webkit-animation-duration: 5s;
+    animation-name: jsMessageFrameUpBottom;
+    animation-duration: 5s;
+}
+
+.jsmessage-frame-no-animation-bottom{
+    bottom: 10px;
+    left: calc(50% - 180px);
+}
+
+.jsmessage-frame-no-animation-up{
+    top: 10px;
+    left: calc(50% - 180px);
+}
+
+/* keyframes */
+
+@keyframes jsMessageFrameBottomUp {
+    0%   {top: -200px;}
+    30%  {top: 10px;}
+    75%  {top: 10px;}
+    100% {top: -200px;}
+}
+
+@keyframes jsMessageFrameUpBottom {
+    0%   {bottom: -200px;}
+    30%  {bottom: 10px;}
+    75%  {bottom: 10px;}
+    100% {bottom: -200px;}
+}
